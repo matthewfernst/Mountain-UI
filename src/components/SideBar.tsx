@@ -1,19 +1,28 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { usePollingQuery } from "@/hooks/usePollingQuery";
+import { ResortData } from "@/type/ResortFeed";
+import TodaysConditions from "./Sidebar/TodaysConditions";
+import LiveStreams from "./Map/LiveStream";
+import Alerts from "./Sidebar/Alerts";
+import Forecast from "./Sidebar/Forecast";
+import MountainStatus from "./Sidebar/MountainStatus";
+import Leaderboard from "./Sidebar/Leaderboard";
+import { PanelRightClose } from "lucide-react";
 
-import callExternalAPIOnInterval from "../hooks/callExternalAPIOnInterval";
-import TodaysWeather from "./SideBar/TodaysWeather";
-import Forecast from "./SideBar/Forecast";
-import MountainStatus from "./SideBar/MountainStatus";
-import Leaderboard from "./SideBar/Leaderboard";
-
-const SideBar = () => {
+const SideBar = ({ setShowSideBar }: { setShowSideBar: (v: boolean) => void }) => {
     const { VITE_TIME_INTERVAL, VITE_SKI_RESORT_ID } = import.meta.env;
-    const resortData = callExternalAPIOnInterval(
-        VITE_TIME_INTERVAL,
-        `https://mtnpowder.com/feed?resortId=${VITE_SKI_RESORT_ID}`
+
+    const {
+        data: resortData,
+        isLoading,
+        error
+    } = usePollingQuery<ResortData>(
+        "resortData",
+        `https://mtnpowder.com/feed?resortId=${VITE_SKI_RESORT_ID}`,
+        VITE_TIME_INTERVAL
     );
 
-    if (!resortData) {
+    // TODO: Making loading screen?
+    if (!resortData || isLoading || error) {
         return null;
     }
 
@@ -25,24 +34,34 @@ const SideBar = () => {
     ];
 
     return (
-        <Box display={"flex"} flexDirection={"column"} height={"100%"} pt={1.5} pl={3} pr={3}>
-            <Typography sx={{ textAlign: "center", fontSize: 40, fontWeight: 800 }}>
+        <div className="flex flex-col pt-1 px-3 bg-white text-neutral-900 border-r border-neutral-900">
+            <div className="flex flex-row items-center justify-between -ml-3 -mt-1">
+                <button
+                    onClick={() => setShowSideBar(false)}
+                    className="bg-transparent text-neutral-900 hover:bg-neutral-200 p-2"
+                >
+                    <PanelRightClose size={20} />
+                </button>
+                <div className="flex flex-row justify-end items-center">
+                    <LiveStreams />
+                    <Alerts />
+                </div>
+            </div>
+
+            <h1 className="text-center text-xl font-semibold text-neutral-900 tracking-tight">
                 Steamboat Springs
-            </Typography>
-            <Divider sx={{ borderBottomWidth: "medium", mt: 1, mb: 1.5 }} />
+            </h1>
+
             {todaysWeather && (
-                <TodaysWeather
+                <TodaysConditions
                     todaysWeather={todaysWeather}
                     todaysSnow={resortData.Forecast.OneDay}
                 />
             )}
-            <Divider sx={{ borderBottomWidth: "medium", mt: 2, mb: 1 }} />
             {forecast && <Forecast forecast={forecast} />}
-            <Divider sx={{ borderBottomWidth: "medium", mt: 1, mb: 1 }} />
             <MountainStatus />
-            <Divider sx={{ borderBottomWidth: "medium", mt: 1, mb: 2 }} />
             <Leaderboard />
-        </Box>
+        </div>
     );
 };
 

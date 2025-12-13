@@ -1,0 +1,173 @@
+export type ResortData = {
+    Name: string;
+    CurrentConditions: {
+        Base: BaseConditions;
+    };
+
+    SnowReport: {
+        LastUpdate: string;
+        BaseConditions: string;
+        Report: string;
+        AdditionalText: string;
+        Alert: string;
+        StormRadar: string;
+        StormRadarButtonText: string;
+        SafetyReport: string;
+        SafetyReportFrench: string;
+        LiftNotification: string;
+        OpenTerrainAcres: string;
+        TotalTerrainAcres: string;
+        StormTotalIn: string;
+        StormTotalCM: string;
+        AnnualAverageSnowfallIn: string;
+        AnnualAverageSnowfallCm: string;
+        SnowBaseRangeIn: string;
+        SnowBaseRangeCM: string;
+        SeasonTotalIn: string;
+        SeasonTotalCm: string;
+        SecondarySeasonTotalIn: string;
+        SecondarySeasonTotalCm: string;
+        OpenTerrainHectares: string;
+        TotalTerrainHectares: string;
+        TotalOpenTrails: number;
+        TotalTrails: number;
+        TotalTrailsMakingSnow: number;
+        GroomedTrails: number;
+        TotalOpenLifts: number;
+        TotalLifts: number;
+        TotalOpenActivities: number;
+        TotalActivities: number;
+        TotalOpenParks: number;
+        TotalParks: number;
+        OpenNightParks: number;
+        TotalNightParks: number;
+        TotalParkFeatures: number;
+        OpenNightTrails: number;
+        TotalNightTrails: number;
+        BaseArea: {
+            Name: string;
+            SinceLiftsClosedIn: string;
+            BaseIn: string;
+            BaseCm: string;
+            Last24HoursIn: string;
+            Last48HoursIn: string;
+            Last72HoursIn: string;
+            Last7DaysIn: string;
+            SinceLiftsClosedCm: string;
+            Last24HoursCm: string;
+            Last48HoursCm: string;
+            Last72HoursCm: string;
+            Last7DaysCm: string;
+        };
+        MidMountainArea: {
+            Name: string;
+            SinceLiftsClosedIn: string;
+            BaseIn: string;
+            BaseCm: string;
+            Last24HoursIn: string;
+            Last48HoursIn: string;
+            Last72HoursIn: string;
+            Last7DaysIn: string;
+            SinceLiftsClosedCm: string;
+            Last24HoursCm: string;
+            Last48HoursCm: string;
+            Last72HoursCm: string;
+            Last7DaysCm: string;
+        };
+        SummitArea: {
+            Name: string;
+            SinceLiftsClosedIn: string;
+            BaseIn: string;
+            BaseCm: string;
+            Last24HoursIn: string;
+            Last48HoursIn: string;
+            Last72HoursIn: string;
+            Last7DaysIn: string;
+            SinceLiftsClosedCm: string;
+            Last24HoursCm: string;
+            Last48HoursCm: string;
+            Last72HoursCm: string;
+            Last7DaysCm: string;
+        };
+        GroomingActive: string;
+        SnowMakingActive: string;
+        ApiMetrics: string;
+        TotalHalfpipes: number;
+        OpenHalfpipes: number;
+    };
+
+    Forecast: {
+        FeedSavedTime: string;
+        TempHighF: number;
+        TempLowF: number;
+        TempHighC: number;
+        TempHigh_c: number;
+        TempLowC: number;
+        ForecastedSnowIn: number;
+        ForecastedSnowCm: number;
+        DayComments: string;
+        NightComments: string;
+        OneDay: DayWeather;
+        TwoDay: DayWeather;
+        ThreeDay: DayWeather;
+        FourDay: DayWeather;
+        FiveDay: DayWeather;
+    };
+};
+
+export type BaseConditions = {
+    Name: string;
+    PressureIN: number;
+    PressureMB: number;
+    TemperatureF: number;
+    TemperatureC: number;
+    Humidity: number;
+    DewPointF: number;
+    DewPointC: number;
+    WindDirection: string;
+    WindStrengthMph: number;
+    WindStrengthKph: number;
+    WindGustsMph: number;
+    WindGustsKph: number;
+    WindChillF: number;
+    WindChillC: number;
+    Skies: string;
+    TemperatureHighF: number;
+    TemperatureHighC: number;
+    TemperatureLowF: number;
+    TemperatureLowC: number;
+    UvIndex: number;
+    Conditions: string;
+    Icon: string;
+    IconFA: {
+        Style: string;
+        Name: string;
+    };
+    Default: boolean;
+};
+
+export type DayWeather = {
+    skies: string;
+    icon_fa: {
+        style: string;
+        name: string;
+    };
+    temp_high_f: string;
+    temp_low_f: string;
+    temp_high_c: string;
+    temp_low_c: string;
+    forecasted_snow_in: string;
+    forecasted_snow_cm: string;
+    date: string;
+    conditions: string;
+    icon: string;
+    avewind: {
+        mph: string;
+        kph: string;
+        dir: string;
+    };
+    forecasted_snow_day_in: string;
+    forecasted_snow_day_cm: string;
+    forecasted_snow_night_in: string;
+    forecasted_snow_night_cm: string;
+};
